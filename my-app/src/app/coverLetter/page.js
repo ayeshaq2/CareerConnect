@@ -12,4 +12,9 @@ export default function Home() {
     setResume(event.target.files[0]);
   };
 
+  const handleJobDescriptionChange = (event) => {
+    setJobDescription(event.target.value);
+  };
+
+
 }
