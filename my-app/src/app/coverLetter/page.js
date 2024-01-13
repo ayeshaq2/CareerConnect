@@ -16,5 +16,21 @@ export default function Home() {
     setJobDescription(event.target.value);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage('');
 
+    console.log('Resume:', resume);
+    console.log('Job Description:', jobDescription);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setMessage('Cover letter generated successfully!');
+    } catch (error) {
+      setMessage('Error generating cover letter.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 }
