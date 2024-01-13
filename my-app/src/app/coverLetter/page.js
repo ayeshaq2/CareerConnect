@@ -7,5 +7,9 @@ export default function Home() {
   const [jobDescription, setJobDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  
+  const handleResumeChange = (event) => {
+    setResume(event.target.files[0]);
+  };
 
 }
