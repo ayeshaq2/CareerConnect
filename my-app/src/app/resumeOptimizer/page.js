@@ -1,5 +1,6 @@
 'use client'
 
+import { appendMutableCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { Concert_One } from 'next/font/google';
 import { useState } from 'react';
 //const resumeparse = require('resume-parser');
@@ -9,6 +10,7 @@ export default function Home() {
   const [jobDescription, setJobDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const [optimise, setOptimise] = useState(null)
 
   const parseResume = async()=>{
     try{
@@ -33,6 +35,7 @@ export default function Home() {
 
     const formData = new FormData();
     formData.append('resume', file)
+    formData.append('addText', jobDescription)
 
     try{
       if(!resume){
@@ -57,6 +60,7 @@ export default function Home() {
       }
 
       const data = await response.json()
+      setOptimise(data)
       console.log(data)
       }
 
@@ -123,7 +127,10 @@ export default function Home() {
           </button>
         </form>
         {message && <p className="mt-4 text-center text-sm font-medium text-gray-700">{message}</p>}
+        {optimise && (<div><p>{optimise}</p></div>)}
       </div>
+
+      
     </div>
   );
 }
