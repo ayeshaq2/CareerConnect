@@ -1,6 +1,8 @@
 'use client'
 
+import { Concert_One } from 'next/font/google';
 import { useState } from 'react';
+//const resumeparse = require('resume-parser');
 
 export default function Home() {
   const [resume, setResume] = useState(null);
@@ -8,9 +10,78 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleResumeChange = (event) => {
+  const parseResume = async()=>{
+    try{
+      if(!resume){
+        console.error("no file")
+      }
+      console.log("enteres")
+      const formData = new FormData();
+      formData.append('resume',resume)
+      
+      const response = await fetch(`https://localhost:3001/parse/${formData}`)
+      const data = await response.json()
+      console.log(data)
+    }catch(error){
+      console.error("Error:", error)
+    }
+  }
+
+  const handleResumeChange = async (event) => {
+    const file = event.target.files[0]
     setResume(event.target.files[0]);
+
+    const formData = new FormData();
+    formData.append('resume', file)
+
+    try{
+      if(!resume){
+        console.error("no file")
+      }
+      console.log("enteres")
+
+      // const reader = new FileReader();
+      // reader.onload = async(e) =>{
+      //   const text = e.target.result
+
+        const response = await fetch(`http://localhost:3001/parse`,{
+        method:'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json()
+      console.log(data)
+      }
+
+      // reader.onerror = (error) => {
+      //   console.error('Error reading file:', error);
+      // };
+      // reader.readAsText(file);
+     
+      
+    catch(error){
+      console.error("Error:", error)
+    }
+
+    //parseResume()
+
+    // resumeparse
+    // .parseResumeFile(resume)
+    // .then(file=>{
+    //   console.log("yeahhh" + file);
+    // })
+    // .catch(error=>{
+    //   console.error(error)
+    // });
   };
+
 
   const handleJobDescriptionChange = (event) => {
     setJobDescription(event.target.value);
@@ -25,7 +96,7 @@ export default function Home() {
     console.log('Job Description:', jobDescription);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000)); 
       setMessage('Resume Optimized successfully!');
     } catch (error) {
       setMessage('Error Optimizing resume.');
