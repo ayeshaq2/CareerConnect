@@ -9,9 +9,12 @@ const cohere = new CohereClient({
 });
 
 
+//Training Data is taken from a 
+//public data set avaialable on Kaggle: https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset 
+
 (async () => {
     const generate = await cohere.generate({
-        prompt: "generate a resume for a software engineering intern",
+        prompt: "optimize this resume",
     });
   
     console.log(generate.generations[0].text);
