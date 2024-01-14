@@ -3,6 +3,7 @@
 export const config = { runtime: 'client' };
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -13,21 +14,28 @@ export default function Home() {
         </h1>
 
         <div className="flex">
-          <a href="#" className="card">
-            <h2>Resume Optimizer &rarr;</h2>
-            <p>Optimize your resume according to the job description.</p>
-          </a>
+          <Link href="/resumeOptimizer">
+            <p className="card">
+              <h2>Resume Optimizer &rarr;</h2>
+              <p>Optimize your resume according to the job description.</p>
+            </p>
+          </Link>
 
-          <a href="#" className="card">
-            <h2>Cover Letter Generator &rarr;</h2>
-            <p>Create a cover letter based on your resume and job description.</p>
-          </a>
+          <Link href="/coverLetter">
+            <p className="card">
+              <h2>Cover Letter Generator &rarr;</h2>
+              <p>Create a cover letter based on your resume and job description.</p>
+            </p>
+          </Link>
 
-          <a href="#" className="card">
-            <h2>Internship Opportunities &rarr;</h2>
-            <p>Find internship opportunities tailored to your skills and interests.</p>
-          </a>
-        </div>
+          <Link href="/InternshipOpp">
+            <p className="card">
+              <h2>Internship Opportunities &rarr;</h2>
+              <p>Find internship opportunities tailored to your skills and interests.</p>
+            </p>
+          </Link>
+      </div>
+
       </main>
 
       {/* Style JSX with global reset */}
